@@ -1,6 +1,25 @@
-"use client"
+'use client'
+
+import { useState } from 'react';
+import Button from '@/components/Button';
 
 export default function Home() {
+  const [isMetaMaskConnected, setIsMetaMaskConnected] = useState(false);
+
+  const handleClick = async () => {
+    try {
+      if (window.ethereum) {
+        await window.ethereum.request({ method: 'eth_requestAccounts' });
+        setIsMetaMaskConnected(true);
+        console.log('Conectado à MetaMask!');
+      } else {
+        console.error('MetaMask não encontrado. Certifique-se de que está instalado.');
+      }
+    } catch (error) {
+      console.error('Erro ao conectar à MetaMask:', error);
+    }
+  };
+
   return (
     <main className="block justify-center items-center h-screen">
       <h1 className="text-center my-10 font-bold text-xl">Vote no paredão</h1>
@@ -11,6 +30,12 @@ export default function Home() {
           alt="Big Brother Brasil"
         />
       </div>
+      {!isMetaMaskConnected && (
+        <Button onClick={handleClick} label="Entre com sua Metamask" className="mt-4" />
+      )}
+      {isMetaMaskConnected && (
+        <p className="mt-4 text-green-600">Conectado à MetaMask!</p>
+      )}
     </main>
   );
 }
