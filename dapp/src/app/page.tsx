@@ -1,17 +1,19 @@
 'use client'
 
+import { useRouter } from 'next/navigation'
 import { useState } from 'react';
 import Button from '@/components/Button';
 
 export default function Home() {
   const [isMetaMaskConnected, setIsMetaMaskConnected] = useState(false);
+  const router = useRouter();
 
   const handleClick = async () => {
     try {
       if (window.ethereum) {
         await window.ethereum.request({ method: 'eth_requestAccounts' });
         setIsMetaMaskConnected(true);
-        console.log('Conectado à MetaMask!');
+        router.push('/vote')
       } else {
         console.error('MetaMask não encontrado. Certifique-se de que está instalado.');
       }
