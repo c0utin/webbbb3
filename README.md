@@ -13,3 +13,6 @@ This decentralized application (DApp) is inspired by the Brazilian TV show BBB (
 - Solidity (Smart Contract)
 - Binance Smart Chain (TESTNET)
 - Metamask
+
+## Backlog 
+- Implement page for voting
